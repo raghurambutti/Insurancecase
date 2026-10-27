@@ -1,0 +1,20 @@
+{
+  "case_id": "SLEEP-02",
+  "description": "No comorbidity, no home test tried; out-of-network",
+  "channel": "upload",
+  "member_id": "M100209",
+  "provider_npi": "1000000006",
+  "code": "95810",
+  "urgency": "standard",
+  "received_at": "2026-10-18T18:15:52+00:00",
+  "documents": [
+    {
+      "file": "request.pdf",
+      "type": "request_form"
+    },
+    {
+      "file": "sleep_consult.pdf",
+      "type": "clinical_note"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "case_id": "RA-02",
+  "description": "TB lab belongs to a DIFFERENT patient (misfiled); SSN in note",
+  "channel": "fax",
+  "member_id": "M100207",
+  "provider_npi": "1000000004",
+  "code": "J0135",
+  "urgency": "standard",
+  "received_at": "2026-10-19T00:15:52+00:00",
+  "documents": [
+    {
+      "file": "request.pdf",
+      "type": "request_form"
+    },
+    {
+      "file": "rheum_note.pdf",
+      "type": "clinical_note"
+    },
+    {
+      "file": "tb_lab.pdf",
+      "type": "lab_report"
+    }
+  ]
+}

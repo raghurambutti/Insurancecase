@@ -1,0 +1,120 @@
+{
+  "case_id": "SPINE-01",
+  "route": "PEND_FOR_INFO",
+  "route_label": "Pend - missing info requested from provider",
+  "reasons": [
+    "Missing: Physical therapy records with dates or total weeks completed"
+  ],
+  "service": "72148 - MRI Lumbar Spine without Contrast",
+  "policy": "MP-RAD-112 v2026.1",
+  "member": "Daniel Okafor | DOB 1979-01-30 | Commercial PPO | ID ***0204",
+  "provider": "Dr. Diane Foster (Physical Medicine, in-network)",
+  "sla": {
+    "urgency": "standard",
+    "due_at": "2026-10-26T09:15+00:00",
+    "hours_left": 157.0,
+    "status": "on_track"
+  },
+  "criteria": [
+    {
+      "id": "MRI-1",
+      "text": "Diagnosis supports lumbar imaging",
+      "status": "MET"
+    },
+    {
+      "id": "MRI-2",
+      "text": "6+ weeks of conservative therapy OR red flags",
+      "status": "MISSING"
+    },
+    {
+      "id": "MRI-3",
+      "text": "Symptoms 6+ weeks OR red flags",
+      "status": "MET"
+    }
+  ],
+  "contradictions": [],
+  "missing_info": [
+    "Physical therapy records with dates or total weeks completed"
+  ],
+  "flags": [
+    {
+      "code": "LLM_UNAVAILABLE",
+      "severity": "medium",
+      "message": "Model call failed (TypeError); rule-based fallback used",
+      "agent": "clinical_agent"
+    }
+  ],
+  "facts": {
+    "requested_code": {
+      "status": "found",
+      "value": "72148",
+      "quote": "CPT/HCPCS: 72148 - MRI lumbar spine without contrast",
+      "doc_id": "D1",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "diagnosis_icd10": {
+      "status": "found",
+      "value": "M54.50",
+      "quote": "Diagnosis (ICD-10): M54.50",
+      "doc_id": "D1",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "symptom_weeks": {
+      "status": "found",
+      "value": 8.0,
+      "quote": "Low back pain radiating to the left buttock for 8 weeks.",
+      "doc_id": "D2",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "pt_weeks": {
+      "status": "not_found"
+    },
+    "red_flag": {
+      "status": "found",
+      "value": false,
+      "quote": "No red flag symptoms: denies saddle anesthesia, bowel or bladder changes, fever, weight loss.",
+      "doc_id": "D2",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "prescriber_specialty": {
+      "status": "found",
+      "value": "Physical Medicine",
+      "quote": "Provider registry",
+      "doc_id": "REGISTRY",
+      "page": null
+    }
+  },
+  "provider_letter": "RE: Prior authorization SPINE-01 - additional information needed\nPatient: Daniel Okafor   Member ID: ***0204\nService: 72148 - MRI Lumbar Spine without Contrast\n\nTo complete review under policy MP-RAD-112 v2026.1, please send:\n  1. Physical therapy records with dates or total weeks completed\n\nPlease upload through the provider portal. Utilization Management",
+  "extraction_mode": "offline_fallback",
+  "processing_seconds": 0.07,
+  "documents": [
+    {
+      "doc_id": "D1",
+      "file": "request.pdf",
+      "type": "request_form",
+      "excluded": false,
+      "pages": [
+        {
+          "page": 1,
+          "text": "SYNTHETIC TEST DATA - NOT A REAL PATIENT\nPRIOR AUTHORIZATION REQUEST FORM\nPatient: [PATIENT] [PATIENT]   DOB: [DOB]   Member ID: [MEMBER_ID]\nRequesting provider: Dr. Diane Foster   NPI: 1000000002\nCPT/HCPCS: 72148 - MRI lumbar spine without contrast\nDiagnosis (ICD-10): M54.50\nUrgency: Standard\nDate of request: 2026-10-19"
+        }
+      ]
+    },
+    {
+      "doc_id": "D2",
+      "file": "pcp_note.pdf",
+      "type": "clinical_note",
+      "excluded": false,
+      "pages": [
+        {
+          "page": 1,
+          "text": "SYNTHETIC TEST DATA - NOT A REAL PATIENT\nLakeview Primary Care - Clinic Note\nPatient: [PATIENT] [PATIENT]   DOB: [DOB]   Member ID: [MEMBER_ID]\nDate of service: 2026-10-16\nLow back pain radiating to the left buttock for 8 weeks.\nHas been attending physical therapy; number of weeks not documented.\nTaking ibuprofen 600 mg as needed with partial relief.\nNo red flag symptoms: denies saddle anesthesia, bowel or bladder changes, fever, weight loss.\nExam: paraspinal tenderness, negative straight leg raise, strength 5/5.\nPlan: MRI lumbar spine to evaluate for disc pathology."
+        }
+      ]
+    }
+  ]
+}

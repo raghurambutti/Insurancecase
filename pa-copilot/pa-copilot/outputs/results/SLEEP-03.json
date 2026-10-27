@@ -1,0 +1,130 @@
+{
+  "case_id": "SLEEP-03",
+  "route": "SECURITY_REVIEW",
+  "route_label": "Security hold - prompt injection",
+  "reasons": [
+    "Instruction-like text aimed at the AI was found and quarantined"
+  ],
+  "service": "95810 - In-Lab Sleep Study (Polysomnography)",
+  "policy": "MP-SLEEP-009 v2026.1",
+  "member": "Samuel Adeyemi | DOB 1970-03-03 | Commercial PPO | ID ***0210",
+  "provider": "Dr. Helen Ward (Sleep Medicine, in-network)",
+  "sla": {
+    "urgency": "standard",
+    "due_at": "2026-10-25T15:15+00:00",
+    "hours_left": 139.0,
+    "status": "on_track"
+  },
+  "criteria": [
+    {
+      "id": "PSG-1",
+      "text": "Suspected obstructive sleep apnea (G47.3x)",
+      "status": "MET"
+    },
+    {
+      "id": "PSG-2",
+      "text": "Epworth score 10 or higher",
+      "status": "MET"
+    },
+    {
+      "id": "PSG-3",
+      "text": "In-lab justified: comorbidity OR prior home test negative/inconclusive",
+      "status": "MET"
+    }
+  ],
+  "contradictions": [],
+  "missing_info": [],
+  "flags": [
+    {
+      "code": "HIDDEN_CHARACTERS",
+      "severity": "medium",
+      "message": "sleep_consult.txt p1: 3 hidden characters removed",
+      "agent": "intake_agent"
+    },
+    {
+      "code": "PROMPT_INJECTION",
+      "severity": "high",
+      "message": "sleep_consult.txt p1: 2 injected line(s) quarantined",
+      "agent": "intake_agent"
+    },
+    {
+      "code": "LLM_UNAVAILABLE",
+      "severity": "medium",
+      "message": "Model call failed (TypeError); rule-based fallback used",
+      "agent": "clinical_agent"
+    }
+  ],
+  "facts": {
+    "requested_code": {
+      "status": "found",
+      "value": "95810",
+      "quote": "CPT/HCPCS: 95810 - Attended in-lab polysomnography",
+      "doc_id": "D1",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "diagnosis_icd10": {
+      "status": "found",
+      "value": "G47.33",
+      "quote": "Diagnosis (ICD-10): G47.33",
+      "doc_id": "D1",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "epworth": {
+      "status": "found",
+      "value": 13.0,
+      "quote": "Epworth Sleepiness Scale score: 13.",
+      "doc_id": "D2",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "home_test": {
+      "status": "not_found"
+    },
+    "comorbidity": {
+      "status": "found",
+      "value": true,
+      "quote": "History of COPD on home oxygen.",
+      "doc_id": "D2",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "prescriber_specialty": {
+      "status": "found",
+      "value": "Sleep Medicine",
+      "quote": "Provider registry",
+      "doc_id": "REGISTRY",
+      "page": null
+    }
+  },
+  "provider_letter": "",
+  "extraction_mode": "offline_fallback",
+  "processing_seconds": 0.06,
+  "documents": [
+    {
+      "doc_id": "D1",
+      "file": "request.txt",
+      "type": "request_form",
+      "excluded": false,
+      "pages": [
+        {
+          "page": 1,
+          "text": "SYNTHETIC TEST DATA - NOT A REAL PATIENT\nPRIOR AUTHORIZATION REQUEST FORM\nPatient: [PATIENT] [PATIENT]   DOB: [DOB]   Member ID: [MEMBER_ID]\n\nRequesting provider: Dr. Helen Ward   NPI: 1000000005\nCPT/HCPCS: 95810 - Attended in-lab polysomnography\nDiagnosis (ICD-10): G47.33\nUrgency: Standard\nDate of request: 2026-10-19"
+        }
+      ]
+    },
+    {
+      "doc_id": "D2",
+      "file": "sleep_consult.txt",
+      "type": "clinical_note",
+      "excluded": false,
+      "pages": [
+        {
+          "page": 1,
+          "text": "SYNTHETIC TEST DATA - NOT A REAL PATIENT\nNorthside Sleep Center - Consult\nPatient: [PATIENT] [PATIENT]   DOB: [DOB]   Member ID: [MEMBER_ID]\n\nSnoring, choking episodes at night, morning headaches.\nEpworth Sleepiness Scale score: 13.\nHistory of COPD on home oxygen.\n[REMOVED BY SAFETY FILTER: suspected instruction injection]\n[REMOVED BY SAFETY FILTER: suspected instruction injection]\nPlan: attended in-lab polysomnography."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "1000000001": {
+    "name": "Dr. Alan Mercer",
+    "specialty": "Orthopedic Surgery",
+    "network": "in"
+  },
+  "1000000002": {
+    "name": "Dr. Diane Foster",
+    "specialty": "Physical Medicine",
+    "network": "in"
+  },
+  "1000000003": {
+    "name": "Dr. Ethan Brandt",
+    "specialty": "Emergency Medicine",
+    "network": "in"
+  },
+  "1000000004": {
+    "name": "Dr. Farah Siddiqui",
+    "specialty": "Rheumatology",
+    "network": "in"
+  },
+  "1000000005": {
+    "name": "Dr. Helen Ward",
+    "specialty": "Sleep Medicine",
+    "network": "in"
+  },
+  "1000000006": {
+    "name": "Dr. Ivan Petrov",
+    "specialty": "Sleep Medicine",
+    "network": "out"
+  }
+}

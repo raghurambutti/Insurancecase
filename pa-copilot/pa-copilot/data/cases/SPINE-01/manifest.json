@@ -1,0 +1,20 @@
+{
+  "case_id": "SPINE-01",
+  "description": "PT mentioned but duration not documented",
+  "channel": "portal",
+  "member_id": "M100204",
+  "provider_npi": "1000000002",
+  "code": "72148",
+  "urgency": "standard",
+  "received_at": "2026-10-19T09:15:52+00:00",
+  "documents": [
+    {
+      "file": "request.pdf",
+      "type": "request_form"
+    },
+    {
+      "file": "pcp_note.pdf",
+      "type": "clinical_note"
+    }
+  ]
+}

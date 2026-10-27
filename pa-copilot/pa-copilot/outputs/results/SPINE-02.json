@@ -1,0 +1,124 @@
+{
+  "case_id": "SPINE-02",
+  "route": "NURSE_REVIEW",
+  "route_label": "Nurse clinical review",
+  "reasons": [
+    "Model call failed (TypeError); rule-based fallback used"
+  ],
+  "service": "72148 - MRI Lumbar Spine without Contrast",
+  "policy": "MP-RAD-112 v2026.1",
+  "member": "Priya Raman | DOB 1985-09-14 | Medicaid | ID ***0205",
+  "provider": "Dr. Ethan Brandt (Emergency Medicine, in-network)",
+  "sla": {
+    "urgency": "expedited",
+    "due_at": "2026-10-22T06:15+00:00",
+    "hours_left": 58.0,
+    "status": "on_track"
+  },
+  "criteria": [
+    {
+      "id": "MRI-1",
+      "text": "Diagnosis supports lumbar imaging",
+      "status": "MET"
+    },
+    {
+      "id": "MRI-2",
+      "text": "6+ weeks of conservative therapy OR red flags",
+      "status": "MET"
+    },
+    {
+      "id": "MRI-3",
+      "text": "Symptoms 6+ weeks OR red flags",
+      "status": "MET"
+    }
+  ],
+  "contradictions": [],
+  "missing_info": [],
+  "flags": [
+    {
+      "code": "PHI_MINIMIZED",
+      "severity": "info",
+      "message": "ed_note.pdf p1: SSN, phone masked (not needed for review)",
+      "agent": "intake_agent"
+    },
+    {
+      "code": "LLM_UNAVAILABLE",
+      "severity": "medium",
+      "message": "Model call failed (TypeError); rule-based fallback used",
+      "agent": "clinical_agent"
+    }
+  ],
+  "facts": {
+    "requested_code": {
+      "status": "found",
+      "value": "72148",
+      "quote": "CPT/HCPCS: 72148 - MRI lumbar spine without contrast",
+      "doc_id": "D1",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "diagnosis_icd10": {
+      "status": "found",
+      "value": "G83.4",
+      "quote": "Diagnosis (ICD-10): G83.4",
+      "doc_id": "D1",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "symptom_weeks": {
+      "status": "found",
+      "value": 2.0,
+      "quote": "Low back pain for 2 weeks, now with progressive weakness in both legs over 3 days.",
+      "doc_id": "D2",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "pt_weeks": {
+      "status": "not_found"
+    },
+    "red_flag": {
+      "status": "found",
+      "value": true,
+      "quote": "Low back pain for 2 weeks, now with progressive weakness in both legs over 3 days.",
+      "doc_id": "D2",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "prescriber_specialty": {
+      "status": "found",
+      "value": "Emergency Medicine",
+      "quote": "Provider registry",
+      "doc_id": "REGISTRY",
+      "page": null
+    }
+  },
+  "provider_letter": "",
+  "extraction_mode": "offline_fallback",
+  "processing_seconds": 0.06,
+  "documents": [
+    {
+      "doc_id": "D1",
+      "file": "request.pdf",
+      "type": "request_form",
+      "excluded": false,
+      "pages": [
+        {
+          "page": 1,
+          "text": "SYNTHETIC TEST DATA - NOT A REAL PATIENT\nPRIOR AUTHORIZATION REQUEST FORM\nPatient: [PATIENT] [PATIENT]   DOB: [DOB]   Member ID: [MEMBER_ID]\nRequesting provider: Dr. Ethan Brandt   NPI: 1000000003\nCPT/HCPCS: 72148 - MRI lumbar spine without contrast\nDiagnosis (ICD-10): G83.4\nUrgency: Expedited\nDate of request: 2026-10-19"
+        }
+      ]
+    },
+    {
+      "doc_id": "D2",
+      "file": "ed_note.pdf",
+      "type": "clinical_note",
+      "excluded": false,
+      "pages": [
+        {
+          "page": 1,
+          "text": "SYNTHETIC TEST DATA - NOT A REAL PATIENT\nMercy Hospital - Emergency Department Note\nPatient: [PATIENT] [PATIENT]   DOB: [DOB]   Member ID: [MEMBER_ID]\nSSN: [SSN]   Phone: [PHONE]\nDate of service: 2026-10-19\nLow back pain for 2 weeks, now with progressive weakness in both legs over 3 days.\nNew urinary retention and saddle anesthesia since this morning.\nExam: decreased perianal sensation, bilateral ankle dorsiflexion 4/5.\nAssessment: suspected cauda equina syndrome.\nPlan: emergent MRI lumbar spine and neurosurgery consult."
+        }
+      ]
+    }
+  ]
+}

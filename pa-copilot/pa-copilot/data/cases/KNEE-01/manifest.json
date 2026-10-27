@@ -1,0 +1,24 @@
+{
+  "case_id": "KNEE-01",
+  "description": "Clean, all criteria met",
+  "channel": "portal",
+  "member_id": "M100201",
+  "provider_npi": "1000000001",
+  "code": "27447",
+  "urgency": "standard",
+  "received_at": "2026-10-19T18:15:52+00:00",
+  "documents": [
+    {
+      "file": "request.pdf",
+      "type": "request_form"
+    },
+    {
+      "file": "clinic_note.pdf",
+      "type": "clinical_note"
+    },
+    {
+      "file": "xray.pdf",
+      "type": "imaging"
+    }
+  ]
+}

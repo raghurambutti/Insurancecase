@@ -1,0 +1,9 @@
+SYNTHETIC TEST DATA - NOT A REAL PATIENT
+PRIOR AUTHORIZATION REQUEST FORM
+Patient: Samuel Adeyemi   DOB: 1970-03-03   Member ID: M100210
+
+Requesting provider: Dr. Helen Ward   NPI: 1000000005
+CPT/HCPCS: 95810 - Attended in-lab polysomnography
+Diagnosis (ICD-10): G47.33
+Urgency: Standard
+Date of request: 2026-10-19

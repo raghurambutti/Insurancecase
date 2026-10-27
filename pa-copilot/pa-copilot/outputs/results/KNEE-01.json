@@ -1,0 +1,164 @@
+{
+  "case_id": "KNEE-01",
+  "route": "NURSE_REVIEW",
+  "route_label": "Nurse clinical review",
+  "reasons": [
+    "Model call failed (TypeError); rule-based fallback used"
+  ],
+  "service": "27447 - Total Knee Arthroplasty",
+  "policy": "MP-ORTHO-027 v2026.3",
+  "member": "Eleanor Whitfield | DOB 1954-03-12 | Medicare Advantage | ID ***0201",
+  "provider": "Dr. Alan Mercer (Orthopedic Surgery, in-network)",
+  "sla": {
+    "urgency": "standard",
+    "due_at": "2026-10-26T18:15+00:00",
+    "hours_left": 166.0,
+    "status": "on_track"
+  },
+  "criteria": [
+    {
+      "id": "TKA-1",
+      "text": "Diagnosis is knee osteoarthritis (M17.x)",
+      "status": "MET"
+    },
+    {
+      "id": "TKA-2",
+      "text": "Kellgren-Lawrence grade 3 or 4 on imaging",
+      "status": "MET"
+    },
+    {
+      "id": "TKA-3",
+      "text": "At least 12 weeks of PT AND an NSAID trial",
+      "status": "MET"
+    },
+    {
+      "id": "TKA-4",
+      "text": "BMI below 40",
+      "status": "MET"
+    }
+  ],
+  "contradictions": [],
+  "missing_info": [],
+  "flags": [
+    {
+      "code": "LLM_UNAVAILABLE",
+      "severity": "medium",
+      "message": "Model call failed (TypeError); rule-based fallback used",
+      "agent": "clinical_agent"
+    }
+  ],
+  "facts": {
+    "requested_code": {
+      "status": "found",
+      "value": "27447",
+      "quote": "CPT/HCPCS: 27447 - Total knee arthroplasty",
+      "doc_id": "D1",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "diagnosis_icd10": {
+      "status": "found",
+      "value": "M17.11",
+      "quote": "Diagnosis (ICD-10): M17.11",
+      "doc_id": "D1",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "request_laterality": {
+      "status": "found",
+      "value": "right",
+      "quote": "Laterality: Right",
+      "doc_id": "D1",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "clinical_laterality": {
+      "status": "found",
+      "value": "right",
+      "quote": "Chief complaint: Right knee pain, worsening over 3 years.",
+      "doc_id": "D2",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "kl_grade": {
+      "status": "found",
+      "value": 4.0,
+      "quote": "Impression: Severe osteoarthritis of the right knee, Kellgren-Lawrence grade 4.",
+      "doc_id": "D3",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "pt_weeks": {
+      "status": "found",
+      "value": 14.0,
+      "quote": "Completed 14 weeks of supervised physical therapy without lasting improvement.",
+      "doc_id": "D2",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "nsaid_trial": {
+      "status": "found",
+      "value": true,
+      "quote": "Trialed naproxen 500 mg twice daily for 6 months; stopped due to GI upset.",
+      "doc_id": "D2",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "bmi": {
+      "status": "found",
+      "value": 32.4,
+      "quote": "Exam: varus deformity, crepitus, range of motion 5-100 degrees. BMI 32.4.",
+      "doc_id": "D2",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "prescriber_specialty": {
+      "status": "found",
+      "value": "Orthopedic Surgery",
+      "quote": "Provider registry",
+      "doc_id": "REGISTRY",
+      "page": null
+    }
+  },
+  "provider_letter": "",
+  "extraction_mode": "offline_fallback",
+  "processing_seconds": 0.06,
+  "documents": [
+    {
+      "doc_id": "D1",
+      "file": "request.pdf",
+      "type": "request_form",
+      "excluded": false,
+      "pages": [
+        {
+          "page": 1,
+          "text": "SYNTHETIC TEST DATA - NOT A REAL PATIENT\nPRIOR AUTHORIZATION REQUEST FORM\nPatient: [PATIENT] [PATIENT]   DOB: [DOB]   Member ID: [MEMBER_ID]\nRequesting provider: Dr. Alan Mercer   NPI: 1000000001\nCPT/HCPCS: 27447 - Total knee arthroplasty\nLaterality: Right\nDiagnosis (ICD-10): M17.11\nUrgency: Standard\nDate of request: 2026-10-19"
+        }
+      ]
+    },
+    {
+      "doc_id": "D2",
+      "file": "clinic_note.pdf",
+      "type": "clinical_note",
+      "excluded": false,
+      "pages": [
+        {
+          "page": 1,
+          "text": "SYNTHETIC TEST DATA - NOT A REAL PATIENT\nRiverside Orthopedics - Clinic Note\nPatient: [PATIENT] [PATIENT]   DOB: [DOB]   Member ID: [MEMBER_ID]\nDate of service: 2026-10-14\nChief complaint: Right knee pain, worsening over 3 years.\nPain 8/10 with weight bearing; difficulty climbing stairs and walking one block.\nCompleted 14 weeks of supervised physical therapy without lasting improvement.\nTrialed naproxen 500 mg twice daily for 6 months; stopped due to GI upset.\nExam: varus deformity, crepitus, range of motion 5-100 degrees. BMI 32.4.\nAssessment: Severe primary osteoarthritis of the right knee.\nPlan: Right total knee arthroplasty. Risks and benefits discussed."
+        }
+      ]
+    },
+    {
+      "doc_id": "D3",
+      "file": "xray.pdf",
+      "type": "imaging",
+      "excluded": false,
+      "pages": [
+        {
+          "page": 1,
+          "text": "SYNTHETIC TEST DATA - NOT A REAL PATIENT\nRiverside Imaging - Radiology Report\nPatient: [PATIENT] [PATIENT]   DOB: [DOB]   Member ID: [MEMBER_ID]\nExam: XR RIGHT KNEE, 3 views weight-bearing (2026-09-29)\nFindings: near-complete medial joint space loss, osteophytes, subchondral sclerosis.\nImpression: Severe osteoarthritis of the right knee, Kellgren-Lawrence grade 4."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,159 @@
+{
+  "case_id": "RA-02",
+  "route": "NURSE_REVIEW",
+  "route_label": "Nurse clinical review",
+  "reasons": [
+    "tb_lab.pdf belongs to a different patient: excluded from evidence; notify Privacy Office"
+  ],
+  "service": "J0135 - Adalimumab for Rheumatoid Arthritis",
+  "policy": "MP-RX-044 v2026.2",
+  "member": "Angela Brooks | DOB 1975-02-25 | Medicaid | ID ***0207",
+  "provider": "Dr. Farah Siddiqui (Rheumatology, in-network)",
+  "sla": {
+    "urgency": "standard",
+    "due_at": "2026-10-26T00:15+00:00",
+    "hours_left": 148.0,
+    "status": "on_track"
+  },
+  "criteria": [
+    {
+      "id": "RX-1",
+      "text": "Diagnosis of rheumatoid arthritis (M05/M06)",
+      "status": "MET"
+    },
+    {
+      "id": "RX-2",
+      "text": "Prescribed by a rheumatologist",
+      "status": "MET"
+    },
+    {
+      "id": "RX-3",
+      "text": "3+ months of methotrexate with inadequate response",
+      "status": "MET"
+    },
+    {
+      "id": "RX-4",
+      "text": "Negative TB screening within 12 months",
+      "status": "MISSING"
+    },
+    {
+      "id": "RX-5",
+      "text": "No active serious infection",
+      "status": "MET"
+    }
+  ],
+  "contradictions": [],
+  "missing_info": [
+    "Latent TB screening result (QuantiFERON/IGRA or PPD) from the last 12 months",
+    "Date of the TB screening test"
+  ],
+  "flags": [
+    {
+      "code": "PHI_MINIMIZED",
+      "severity": "info",
+      "message": "rheum_note.pdf p1: SSN masked (not needed for review)",
+      "agent": "intake_agent"
+    },
+    {
+      "code": "WRONG_PATIENT_DOCUMENT",
+      "severity": "high",
+      "message": "tb_lab.pdf belongs to a different patient: excluded from evidence; notify Privacy Office",
+      "agent": "intake_agent"
+    },
+    {
+      "code": "LLM_UNAVAILABLE",
+      "severity": "medium",
+      "message": "Model call failed (TypeError); rule-based fallback used",
+      "agent": "clinical_agent"
+    }
+  ],
+  "facts": {
+    "requested_code": {
+      "status": "found",
+      "value": "J0135",
+      "quote": "CPT/HCPCS: J0135 - Adalimumab injection",
+      "doc_id": "D1",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "diagnosis_icd10": {
+      "status": "found",
+      "value": "M06.9",
+      "quote": "Diagnosis (ICD-10): M06.9",
+      "doc_id": "D1",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "mtx_months": {
+      "status": "found",
+      "value": 4.0,
+      "quote": "Methotrexate 20 mg weekly for 4 months with inadequate response.",
+      "doc_id": "D2",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "tb_result": {
+      "status": "not_found"
+    },
+    "tb_date": {
+      "status": "not_found"
+    },
+    "active_infection": {
+      "status": "found",
+      "value": false,
+      "quote": "No active infection; hepatitis B surface antigen negative.",
+      "doc_id": "D2",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "prescriber_specialty": {
+      "status": "found",
+      "value": "Rheumatology",
+      "quote": "Provider registry",
+      "doc_id": "REGISTRY",
+      "page": null
+    }
+  },
+  "provider_letter": "RE: Prior authorization RA-02 - additional information needed\nPatient: Angela Brooks   Member ID: ***0207\nService: J0135 - Adalimumab for Rheumatoid Arthritis\n\nTo complete review under policy MP-RX-044 v2026.2, please send:\n  1. Latent TB screening result (QuantiFERON/IGRA or PPD) from the last 12 months\n  2. Date of the TB screening test\n\nPlease upload through the provider portal. Utilization Management",
+  "extraction_mode": "offline_fallback",
+  "processing_seconds": 0.06,
+  "documents": [
+    {
+      "doc_id": "D1",
+      "file": "request.pdf",
+      "type": "request_form",
+      "excluded": false,
+      "pages": [
+        {
+          "page": 1,
+          "text": "SYNTHETIC TEST DATA - NOT A REAL PATIENT\nPRIOR AUTHORIZATION REQUEST FORM\nPatient: [PATIENT] [PATIENT]   DOB: [DOB]   Member ID: [MEMBER_ID]\nRequesting provider: Dr. Farah Siddiqui   NPI: 1000000004\nCPT/HCPCS: J0135 - Adalimumab injection\nDiagnosis (ICD-10): M06.9\nUrgency: Standard\nDate of request: 2026-10-19"
+        }
+      ]
+    },
+    {
+      "doc_id": "D2",
+      "file": "rheum_note.pdf",
+      "type": "clinical_note",
+      "excluded": false,
+      "pages": [
+        {
+          "page": 1,
+          "text": "SYNTHETIC TEST DATA - NOT A REAL PATIENT\nSummit Rheumatology - Clinic Note\nPatient: [PATIENT] [PATIENT]   DOB: [DOB]   Member ID: [MEMBER_ID]\nSSN: [SSN]\nDate of service: 2026-10-15\nSeropositive rheumatoid arthritis diagnosed in 2023, active disease (DAS28-CRP 5.1).\nMethotrexate 20 mg weekly for 4 months with inadequate response.\nNo active infection; hepatitis B surface antigen negative.\nPlan: start adalimumab 40 mg every other week."
+        }
+      ]
+    },
+    {
+      "doc_id": "D3",
+      "file": "tb_lab.pdf",
+      "type": "lab_report",
+      "excluded": true,
+      "pages": [
+        {
+          "page": 1,
+          "text": "SYNTHETIC TEST DATA - NOT A REAL PATIENT\nMetro Labs - Result Report\nPatient: Marcus [PATIENT]   DOB: 1971-10-03   Member ID: [MEMBER_ID]\nCollected: 2026-09-19\nQuantiFERON-TB Gold: negative (collected 2026-09-19)."
+        }
+      ],
+      "foreign_name": "Marcus Brooks"
+    }
+  ]
+}

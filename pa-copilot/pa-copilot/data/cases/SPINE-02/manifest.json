@@ -1,0 +1,20 @@
+{
+  "case_id": "SPINE-02",
+  "description": "Red flags (cauda equina), expedited; SSN/phone in note",
+  "channel": "fax",
+  "member_id": "M100205",
+  "provider_npi": "1000000003",
+  "code": "72148",
+  "urgency": "expedited",
+  "received_at": "2026-10-19T06:15:52+00:00",
+  "documents": [
+    {
+      "file": "request.pdf",
+      "type": "request_form"
+    },
+    {
+      "file": "ed_note.pdf",
+      "type": "clinical_note"
+    }
+  ]
+}

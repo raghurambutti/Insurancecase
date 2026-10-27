@@ -1,0 +1,141 @@
+{
+  "case_id": "RA-01",
+  "route": "NURSE_REVIEW",
+  "route_label": "Nurse clinical review",
+  "reasons": [
+    "Model call failed (TypeError); rule-based fallback used"
+  ],
+  "service": "J0135 - Adalimumab for Rheumatoid Arthritis",
+  "policy": "MP-RX-044 v2026.2",
+  "member": "Sofia Marquez | DOB 1972-12-08 | Commercial PPO | ID ***0206",
+  "provider": "Dr. Farah Siddiqui (Rheumatology, in-network)",
+  "sla": {
+    "urgency": "standard",
+    "due_at": "2026-10-26T03:15+00:00",
+    "hours_left": 151.0,
+    "status": "on_track"
+  },
+  "criteria": [
+    {
+      "id": "RX-1",
+      "text": "Diagnosis of rheumatoid arthritis (M05/M06)",
+      "status": "MET"
+    },
+    {
+      "id": "RX-2",
+      "text": "Prescribed by a rheumatologist",
+      "status": "MET"
+    },
+    {
+      "id": "RX-3",
+      "text": "3+ months of methotrexate with inadequate response",
+      "status": "MET"
+    },
+    {
+      "id": "RX-4",
+      "text": "Negative TB screening within 12 months",
+      "status": "MET"
+    },
+    {
+      "id": "RX-5",
+      "text": "No active serious infection",
+      "status": "MET"
+    }
+  ],
+  "contradictions": [],
+  "missing_info": [],
+  "flags": [
+    {
+      "code": "LLM_UNAVAILABLE",
+      "severity": "medium",
+      "message": "Model call failed (TypeError); rule-based fallback used",
+      "agent": "clinical_agent"
+    }
+  ],
+  "facts": {
+    "requested_code": {
+      "status": "found",
+      "value": "J0135",
+      "quote": "CPT/HCPCS: J0135 - Adalimumab injection",
+      "doc_id": "D1",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "diagnosis_icd10": {
+      "status": "found",
+      "value": "M05.79",
+      "quote": "Diagnosis (ICD-10): M05.79",
+      "doc_id": "D1",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "mtx_months": {
+      "status": "found",
+      "value": 6.0,
+      "quote": "Methotrexate 20 mg weekly for 6 months with inadequate response.",
+      "doc_id": "D2",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "tb_result": {
+      "status": "found",
+      "value": "negative",
+      "quote": "QuantiFERON-TB Gold negative on 2026-08-20.",
+      "doc_id": "D2",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "tb_date": {
+      "status": "found",
+      "value": "2026-08-20",
+      "quote": "QuantiFERON-TB Gold negative on 2026-08-20.",
+      "doc_id": "D2",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "active_infection": {
+      "status": "found",
+      "value": false,
+      "quote": "No active infection; hepatitis B surface antigen negative.",
+      "doc_id": "D2",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "prescriber_specialty": {
+      "status": "found",
+      "value": "Rheumatology",
+      "quote": "Provider registry",
+      "doc_id": "REGISTRY",
+      "page": null
+    }
+  },
+  "provider_letter": "",
+  "extraction_mode": "offline_fallback",
+  "processing_seconds": 0.06,
+  "documents": [
+    {
+      "doc_id": "D1",
+      "file": "request.pdf",
+      "type": "request_form",
+      "excluded": false,
+      "pages": [
+        {
+          "page": 1,
+          "text": "SYNTHETIC TEST DATA - NOT A REAL PATIENT\nPRIOR AUTHORIZATION REQUEST FORM\nPatient: [PATIENT] [PATIENT]   DOB: [DOB]   Member ID: [MEMBER_ID]\nRequesting provider: Dr. Farah Siddiqui   NPI: 1000000004\nCPT/HCPCS: J0135 - Adalimumab injection\nDiagnosis (ICD-10): M05.79\nUrgency: Standard\nDate of request: 2026-10-19"
+        }
+      ]
+    },
+    {
+      "doc_id": "D2",
+      "file": "rheum_note.pdf",
+      "type": "clinical_note",
+      "excluded": false,
+      "pages": [
+        {
+          "page": 1,
+          "text": "SYNTHETIC TEST DATA - NOT A REAL PATIENT\nSummit Rheumatology - Clinic Note\nPatient: [PATIENT] [PATIENT]   DOB: [DOB]   Member ID: [MEMBER_ID]\nDate of service: 2026-10-15\nSeropositive rheumatoid arthritis diagnosed in 2023, active disease (DAS28-CRP 5.1).\nMethotrexate 20 mg weekly for 6 months with inadequate response.\nQuantiFERON-TB Gold negative on 2026-08-20.\nNo active infection; hepatitis B surface antigen negative.\nPlan: start adalimumab 40 mg every other week."
+        }
+      ]
+    }
+  ]
+}

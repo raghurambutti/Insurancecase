@@ -1,0 +1,20 @@
+{
+  "case_id": "RA-01",
+  "description": "Clean, all criteria met",
+  "channel": "portal",
+  "member_id": "M100206",
+  "provider_npi": "1000000004",
+  "code": "J0135",
+  "urgency": "standard",
+  "received_at": "2026-10-19T03:15:52+00:00",
+  "documents": [
+    {
+      "file": "request.pdf",
+      "type": "request_form"
+    },
+    {
+      "file": "rheum_note.pdf",
+      "type": "clinical_note"
+    }
+  ]
+}

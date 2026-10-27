@@ -1,0 +1,130 @@
+{
+  "case_id": "SLEEP-02",
+  "route": "MD_REVIEW",
+  "route_label": "Physician review - criteria not met (AI cannot deny)",
+  "reasons": [
+    "PSG-3 not met: In-lab justified: comorbidity OR prior home test negative/inconclusive",
+    "Possible denial: only a physician reviewer may deny"
+  ],
+  "service": "95810 - In-Lab Sleep Study (Polysomnography)",
+  "policy": "MP-SLEEP-009 v2026.1",
+  "member": "Linda Carter | DOB 1980-05-17 | Commercial PPO | ID ***0209",
+  "provider": "Dr. Ivan Petrov (Sleep Medicine, out-network)",
+  "sla": {
+    "urgency": "standard",
+    "due_at": "2026-10-25T18:15+00:00",
+    "hours_left": 142.0,
+    "status": "on_track"
+  },
+  "criteria": [
+    {
+      "id": "PSG-1",
+      "text": "Suspected obstructive sleep apnea (G47.3x)",
+      "status": "MET"
+    },
+    {
+      "id": "PSG-2",
+      "text": "Epworth score 10 or higher",
+      "status": "MET"
+    },
+    {
+      "id": "PSG-3",
+      "text": "In-lab justified: comorbidity OR prior home test negative/inconclusive",
+      "status": "UNMET"
+    }
+  ],
+  "contradictions": [],
+  "missing_info": [],
+  "flags": [
+    {
+      "code": "OUT_OF_NETWORK",
+      "severity": "medium",
+      "message": "Out-of-network provider: check network exception rules",
+      "agent": "intake_agent"
+    },
+    {
+      "code": "LLM_UNAVAILABLE",
+      "severity": "medium",
+      "message": "Model call failed (TypeError); rule-based fallback used",
+      "agent": "clinical_agent"
+    }
+  ],
+  "facts": {
+    "requested_code": {
+      "status": "found",
+      "value": "95810",
+      "quote": "CPT/HCPCS: 95810 - Attended in-lab polysomnography",
+      "doc_id": "D1",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "diagnosis_icd10": {
+      "status": "found",
+      "value": "G47.33",
+      "quote": "Diagnosis (ICD-10): G47.33",
+      "doc_id": "D1",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "epworth": {
+      "status": "found",
+      "value": 11.0,
+      "quote": "Epworth Sleepiness Scale score: 11.",
+      "doc_id": "D2",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "home_test": {
+      "status": "found",
+      "value": "not_performed",
+      "quote": "Home sleep apnea test has not been performed.",
+      "doc_id": "D2",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "comorbidity": {
+      "status": "found",
+      "value": false,
+      "quote": "Denies heart failure, COPD, or neuromuscular disease.",
+      "doc_id": "D2",
+      "page": 1,
+      "confidence": 0.9
+    },
+    "prescriber_specialty": {
+      "status": "found",
+      "value": "Sleep Medicine",
+      "quote": "Provider registry",
+      "doc_id": "REGISTRY",
+      "page": null
+    }
+  },
+  "provider_letter": "",
+  "extraction_mode": "offline_fallback",
+  "processing_seconds": 0.05,
+  "documents": [
+    {
+      "doc_id": "D1",
+      "file": "request.pdf",
+      "type": "request_form",
+      "excluded": false,
+      "pages": [
+        {
+          "page": 1,
+          "text": "SYNTHETIC TEST DATA - NOT A REAL PATIENT\nPRIOR AUTHORIZATION REQUEST FORM\nPatient: [PATIENT] [PATIENT]   DOB: [DOB]   Member ID: [MEMBER_ID]\nRequesting provider: Dr. Ivan Petrov   NPI: 1000000006\nCPT/HCPCS: 95810 - Attended in-lab polysomnography\nDiagnosis (ICD-10): G47.33\nUrgency: Standard\nDate of request: 2026-10-19"
+        }
+      ]
+    },
+    {
+      "doc_id": "D2",
+      "file": "sleep_consult.pdf",
+      "type": "clinical_note",
+      "excluded": false,
+      "pages": [
+        {
+          "page": 1,
+          "text": "SYNTHETIC TEST DATA - NOT A REAL PATIENT\nPetrov Sleep Clinic - Consult\nPatient: [PATIENT] [PATIENT]   DOB: [DOB]   Member ID: [MEMBER_ID]\nSnoring and fatigue for one year.\nEpworth Sleepiness Scale score: 11.\nPast history: hypertension.\nDenies heart failure, COPD, or neuromuscular disease.\nHome sleep apnea test has not been performed.\nPlan: in-lab polysomnography requested."
+        }
+      ]
+    }
+  ]
+}

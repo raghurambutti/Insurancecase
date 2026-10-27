@@ -1,0 +1,106 @@
+{
+  "_note": "Simplified synthetic criteria for the prototype. Production plugs in the plan's licensed criteria (InterQual/MCG) and approved medical policy.",
+  "common_facts": [
+    {"key": "requested_code", "type": "string", "description": "CPT/HCPCS code on the request form",
+     "sources": ["request_form"], "patterns": ["CPT(?:/HCPCS)?:\\s*([0-9]{5}|[A-Z][0-9]{4})"],
+     "ask": "CPT/HCPCS code for the requested service"},
+    {"key": "diagnosis_icd10", "type": "string", "description": "Primary ICD-10 diagnosis code on the request form",
+     "sources": ["request_form"], "patterns": ["ICD-10\\)?:\\s*([A-Z][0-9]{2}(?:\\.[0-9A-Z]{1,4})?)"],
+     "ask": "Primary ICD-10 diagnosis code"}
+  ],
+  "policies": {
+    "27447": {
+      "policy_id": "MP-ORTHO-027", "version": "2026.3", "title": "Total Knee Arthroplasty",
+      "facts": [
+        {"key": "request_laterality", "type": "enum", "description": "Side (left/right) on the request form",
+         "sources": ["request_form"], "patterns": ["Laterality:\\s*(Left|Right)"], "ask": "Laterality of the procedure"},
+        {"key": "clinical_laterality", "type": "enum", "description": "Side of the affected knee in clinical notes/imaging",
+         "sources": ["clinical_note", "imaging"], "patterns": ["\\b(left|right)\\s+knee\\b"], "ask": "Clinical note identifying the affected knee"},
+        {"key": "kl_grade", "type": "number", "description": "Kellgren-Lawrence osteoarthritis grade (0-4)",
+         "sources": ["imaging"], "patterns": ["Kellgren[- ]Lawrence\\s+grade\\s*(\\d)"], "ask": "Knee x-ray report with osteoarthritis grade"},
+        {"key": "pt_weeks", "type": "number", "description": "Weeks of supervised physical therapy completed",
+         "sources": ["clinical_note"], "patterns": ["(\\d+)\\s+weeks?\\s+of\\s+(?:supervised\\s+)?physical therapy"],
+         "ask": "Physical therapy records with dates or total weeks completed"},
+        {"key": "nsaid_trial", "type": "bool", "description": "Documented NSAID trial (naproxen, ibuprofen, meloxicam...)",
+         "sources": ["clinical_note"], "patterns": ["\\b(?:NSAID|naproxen|ibuprofen|meloxicam|celecoxib)\\b"], "negation": true,
+         "ask": "Anti-inflammatory medication trial (drug, duration, outcome)"},
+        {"key": "bmi", "type": "number", "description": "Body mass index",
+         "sources": ["clinical_note"], "patterns": ["BMI[:\\s]*(\\d{2}(?:\\.\\d)?)"], "ask": "Current BMI"}
+      ],
+      "criteria": [
+        {"id": "TKA-1", "text": "Diagnosis is knee osteoarthritis (M17.x)", "rule": {"fact": "diagnosis_icd10", "op": "startswith", "value": ["M17"]}},
+        {"id": "TKA-2", "text": "Kellgren-Lawrence grade 3 or 4 on imaging", "rule": {"fact": "kl_grade", "op": ">=", "value": 3}},
+        {"id": "TKA-3", "text": "At least 12 weeks of PT AND an NSAID trial", "rule": {"all": [
+          {"fact": "pt_weeks", "op": ">=", "value": 12}, {"fact": "nsaid_trial", "op": "==", "value": true}]}},
+        {"id": "TKA-4", "text": "BMI below 40", "rule": {"fact": "bmi", "op": "<", "value": 40}}
+      ],
+      "must_match": [["request_laterality", "clinical_laterality", "LATERALITY_MISMATCH",
+                      "Requested side does not match the side in clinical notes/imaging (wrong-site risk)"]]
+    },
+    "72148": {
+      "policy_id": "MP-RAD-112", "version": "2026.1", "title": "MRI Lumbar Spine without Contrast",
+      "facts": [
+        {"key": "symptom_weeks", "type": "number", "description": "Weeks the back/leg symptoms have been present",
+         "sources": ["clinical_note"], "patterns": ["(?:pain|symptoms?)[^.\\n]{0,60}?for\\s+(\\d+)\\s+weeks"], "ask": "Duration of current symptoms"},
+        {"key": "pt_weeks", "type": "number", "description": "Weeks of supervised physical therapy completed",
+         "sources": ["clinical_note"], "patterns": ["(\\d+)\\s+weeks?\\s+of\\s+(?:supervised\\s+)?physical therapy"],
+         "ask": "Physical therapy records with dates or total weeks completed"},
+        {"key": "red_flag", "type": "bool", "description": "Red flags: cauda equina signs, saddle anesthesia, urinary retention, progressive neuro deficit, suspected cancer/infection",
+         "sources": ["clinical_note"], "patterns": ["(?:red flag|cauda equina|saddle anesthesia|urinary retention|progressive (?:neurologic deficit|weakness))"], "negation": true,
+         "ask": "Red-flag screening (neuro deficit, bowel/bladder symptoms, cancer or infection)"}
+      ],
+      "criteria": [
+        {"id": "MRI-1", "text": "Diagnosis supports lumbar imaging", "rule": {"fact": "diagnosis_icd10", "op": "startswith", "value": ["M54.5", "M54.1", "M51", "G83.4"]}},
+        {"id": "MRI-2", "text": "6+ weeks of conservative therapy OR red flags", "rule": {"any": [
+          {"fact": "pt_weeks", "op": ">=", "value": 6}, {"fact": "red_flag", "op": "==", "value": true}]}},
+        {"id": "MRI-3", "text": "Symptoms 6+ weeks OR red flags", "rule": {"any": [
+          {"fact": "symptom_weeks", "op": ">=", "value": 6}, {"fact": "red_flag", "op": "==", "value": true}]}}
+      ],
+      "must_match": []
+    },
+    "J0135": {
+      "policy_id": "MP-RX-044", "version": "2026.2", "title": "Adalimumab for Rheumatoid Arthritis",
+      "facts": [
+        {"key": "mtx_months", "type": "number", "description": "Months of methotrexate tried",
+         "sources": ["clinical_note"], "patterns": ["methotrexate[^.\\n]{0,60}?for\\s*(\\d+)\\s*months"], "ask": "Methotrexate trial (dose, duration, response)"},
+        {"key": "tb_result", "type": "enum", "description": "Latent TB screening result (negative/positive)",
+         "sources": ["clinical_note", "lab_report"], "patterns": ["(?:QuantiFERON|TB test|IGRA|PPD)[^.\\n]{0,60}?\\b(negative|positive)\\b"],
+         "ask": "Latent TB screening result (QuantiFERON/IGRA or PPD) from the last 12 months"},
+        {"key": "tb_date", "type": "date", "description": "Date of TB screening (YYYY-MM-DD)",
+         "sources": ["clinical_note", "lab_report"], "patterns": ["(?:QuantiFERON|TB test|IGRA|PPD)[^.\\n]{0,80}?(\\d{4}-\\d{2}-\\d{2})"],
+         "ask": "Date of the TB screening test"},
+        {"key": "active_infection", "type": "bool", "description": "Active serious infection present",
+         "sources": ["clinical_note"], "patterns": ["active (?:serious )?infection"], "negation": true, "ask": "Active infection status"}
+      ],
+      "criteria": [
+        {"id": "RX-1", "text": "Diagnosis of rheumatoid arthritis (M05/M06)", "rule": {"fact": "diagnosis_icd10", "op": "startswith", "value": ["M05", "M06"]}},
+        {"id": "RX-2", "text": "Prescribed by a rheumatologist", "rule": {"fact": "prescriber_specialty", "op": "==", "value": "Rheumatology"}},
+        {"id": "RX-3", "text": "3+ months of methotrexate with inadequate response", "rule": {"fact": "mtx_months", "op": ">=", "value": 3}},
+        {"id": "RX-4", "text": "Negative TB screening within 12 months", "rule": {"all": [
+          {"fact": "tb_result", "op": "==", "value": "negative"}, {"fact": "tb_date", "op": "within_days", "value": 365}]}},
+        {"id": "RX-5", "text": "No active serious infection", "rule": {"fact": "active_infection", "op": "==", "value": false}}
+      ],
+      "must_match": []
+    },
+    "95810": {
+      "policy_id": "MP-SLEEP-009", "version": "2026.1", "title": "In-Lab Sleep Study (Polysomnography)",
+      "facts": [
+        {"key": "epworth", "type": "number", "description": "Epworth Sleepiness Scale score",
+         "sources": ["clinical_note"], "patterns": ["Epworth(?: Sleepiness Scale)?(?: score)?[:\\s]*(\\d{1,2})"], "ask": "Epworth Sleepiness Scale score"},
+        {"key": "home_test", "type": "enum", "description": "Prior home sleep test: positive, negative, inconclusive or not_performed",
+         "sources": ["clinical_note"], "patterns": ["home sleep (?:apnea )?test[^.\\n]{0,40}?\\b(inconclusive|negative|positive|not (?:been )?performed)\\b"],
+         "map": {"not performed": "not_performed", "not been performed": "not_performed"}, "ask": "Result of any home sleep test, or why it was not done"},
+        {"key": "comorbidity", "type": "bool", "description": "Comorbidity making home testing inappropriate (heart failure, COPD, neuromuscular disease)",
+         "sources": ["clinical_note"], "patterns": ["(?:heart failure|\\bCOPD\\b|neuromuscular disease)"], "negation": true,
+         "ask": "Relevant cardiopulmonary or neuromuscular comorbidities"}
+      ],
+      "criteria": [
+        {"id": "PSG-1", "text": "Suspected obstructive sleep apnea (G47.3x)", "rule": {"fact": "diagnosis_icd10", "op": "startswith", "value": ["G47.3"]}},
+        {"id": "PSG-2", "text": "Epworth score 10 or higher", "rule": {"fact": "epworth", "op": ">=", "value": 10}},
+        {"id": "PSG-3", "text": "In-lab justified: comorbidity OR prior home test negative/inconclusive", "rule": {"any": [
+          {"fact": "comorbidity", "op": "==", "value": true}, {"fact": "home_test", "op": "in", "value": ["negative", "inconclusive"]}]}}
+      ],
+      "must_match": []
+    }
+  }
+}

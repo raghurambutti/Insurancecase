@@ -1,0 +1,20 @@
+{
+  "case_id": "SLEEP-01",
+  "description": "Clean: heart failure justifies in-lab study",
+  "channel": "portal",
+  "member_id": "M100208",
+  "provider_npi": "1000000005",
+  "code": "95810",
+  "urgency": "standard",
+  "received_at": "2026-10-18T21:15:52+00:00",
+  "documents": [
+    {
+      "file": "request.pdf",
+      "type": "request_form"
+    },
+    {
+      "file": "sleep_consult.pdf",
+      "type": "clinical_note"
+    }
+  ]
+}

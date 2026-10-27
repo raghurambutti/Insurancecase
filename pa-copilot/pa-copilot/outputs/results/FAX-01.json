@@ -1,0 +1,54 @@
+{
+  "case_id": "FAX-01",
+  "route": "INTAKE_EXCEPTION",
+  "route_label": "Intake exception - file unreadable",
+  "reasons": [
+    "clinic_note.pdf: unreadable (PdfStreamError); resubmission needed"
+  ],
+  "service": "27447 - Total Knee Arthroplasty",
+  "policy": "MP-ORTHO-027 v2026.3",
+  "member": "Nancy Holt | DOB 1957-10-10 | Medicare Advantage | ID ***0211",
+  "provider": "Dr. Alan Mercer (Orthopedic Surgery, in-network)",
+  "sla": {
+    "urgency": "standard",
+    "due_at": "2026-10-25T12:15+00:00",
+    "hours_left": 136.0,
+    "status": "on_track"
+  },
+  "criteria": [],
+  "contradictions": [],
+  "missing_info": [],
+  "flags": [
+    {
+      "code": "FILE_CORRUPTED",
+      "severity": "high",
+      "message": "clinic_note.pdf: unreadable (PdfStreamError); resubmission needed",
+      "agent": "intake_agent"
+    }
+  ],
+  "facts": {},
+  "provider_letter": "",
+  "extraction_mode": null,
+  "processing_seconds": 0.04,
+  "documents": [
+    {
+      "doc_id": "D1",
+      "file": "request.pdf",
+      "type": "request_form",
+      "excluded": false,
+      "pages": [
+        {
+          "page": 1,
+          "text": "SYNTHETIC TEST DATA - NOT A REAL PATIENT\nPRIOR AUTHORIZATION REQUEST FORM\nPatient: [PATIENT] [PATIENT]   DOB: [DOB]   Member ID: [MEMBER_ID]\nRequesting provider: Dr. Alan Mercer   NPI: 1000000001\nCPT/HCPCS: 27447 - Total knee arthroplasty\nLaterality: Left\nDiagnosis (ICD-10): M17.12\nUrgency: Standard\nDate of request: 2026-10-19"
+        }
+      ]
+    },
+    {
+      "doc_id": "D2",
+      "file": "clinic_note.pdf",
+      "type": "clinical_note",
+      "excluded": true,
+      "pages": []
+    }
+  ]
+}
